@@ -1,0 +1,192 @@
+﻿@model IEnumerable<TracNghiemOnline.Models.question>
+
+@{
+
+    ViewBag.Title = "Lọc câu hỏi theo môn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="title-content">
+    <span class="title">@ViewBag.Title</span>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+<p>
+    <a class="btn btn-info modal-trigger" href="@Url.Action("QuestionManager")">Quay lại</a>
+</p>
+<div class="content row col s12">
+    @using (Html.BeginForm("DeleteQuestion", "Admin", FormMethod.Post))
+    {
+        <table class="striped centered" id="questions-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nội Dung</th>
+                    <th>Đáp Án A</th>
+                    <th>Đáp Án B</th>
+                    <th>Đáp Án C</th>
+                    <th>Đáp Án D</th>
+                    <th>Thông Tin</th>
+                    <th>
+                        <p>
+                            <label>
+                                <input type="checkbox" id="checked-all" />
+                                <span></span>
+                            </label>
+                        </p>
+                    </th>
+                    <th>
+                        <i class="material-icons" id="icon-settings">settings</i>
+                        <input type="submit" class="material-icons hidden" value="delete_forever" style="background: none; border: none; cursor: pointer; color: red;" id="icon-delete-all" />
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.id_question</td>
+                        <td>
+                            @item.content
+
+                        </td>
+                        <td>
+                            @item.answer_a
+                            @if (item.correct_answer.Equals(item.answer_a))
+                            {
+                                <br /><span class="failed">(Đáp Án Đúng)</span>
+                            }
+                        </td>
+                        <td>
+                            @item.answer_b
+                            @if (item.correct_answer.Equals(item.answer_b))
+                            {
+                                <br /><span class="failed">(Đáp Án Đúng)</span>
+                            }
+                        </td>
+                        <td>
+                            @item.answer_c
+
+                            @if (item.correct_answer.Equals(item.answer_c))
+                            {
+                                <br /><span class="failed">(Đáp Án Đúng)</span>
+                            }
+                        </td>
+                        <td>
+                            @item.answer_d
+                            @if (item.correct_answer.Equals(item.answer_d))
+                            {
+                                <br /><span class="failed">(Đáp Án Đúng)</span>
+                            }
+                        </td>
+                        <td style="width:200px;">
+                            Loại câu hỏi: @item.unit <br />
+                            Môn @item.subject.subject_name
+                        </td>
+                        <td>
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="checkbox" name="checkbox" value="@item.id_question" onchange="check_box()" />
+                                    <span></span>
+                                </label>
+                            </p>
+                        </td>
+                        <td>
+
+                            <a href="@Url.Action("EditQuestion/" + item.id_question)"><i class="material-icons"></i></a>
+                            <!--<a class="modal-trigger" href="#edit-@item.id_question"><i class="material-icons">edit</i></a>
+                            <a data-modal='' href="@Url.Action("EditQuestion", "Admin", new { id = item.id_question })" data-id="@item.id_question" id="@item.id_question " title="edit">Modifier </a>-->
+                            <a class="modal-trigger" href="#delete-@item.id_question"><i class="material-icons"></i></a>
+
+                        </td>
+                    </tr>
+
+                    <!-- Modal Structure -->
+                    <div id="delete-@item.id_question" class="modal">
+                        <div class="modal-content">
+                            <h4>Xác Nhận</h4>
+                            <p>Bạn có xóa câu hỏi @item.content</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="modal-close waves-effect waves-green btn-flat">Hủy</a>
+                            <a href="@Url.Action("DeleteQuestion/" + item.id_question)" class="modal-close waves-effect waves-green btn-flat">Có</a>
+                        </div>
+                    </div>
+                    <!--thêm mới modal-->
+
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<script>
+    $('.tabs').tabs();
+    $('.modal').modal();
+    $('#questions-table').DataTable({
+        "language": {
+            "lengthMenu": "Hiển thị _MENU_",
+            "zeroRecords": "Không tìm thấy",
+            "info": "Hiển thị trang _PAGE_/_PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "emptyTable": "Không có dữ liệu",
+            "infoFiltered": "(tìm kiếm trong tất cả _MAX_ mục)",
+            "sSearch": "Tìm kiếm",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            }
+        }
+    });
+    $('select').select();
+    $('#checked-all').on('change', function () {
+        if (this.checked) {
+            $('.checkbox').each(function () {
+                this.checked = true;
+            });
+            $('#icon-settings').addClass('hidden');
+            $('#icon-delete-all').removeClass('hidden');
+        } else {
+            $('.checkbox').each(function () {
+                this.checked = false;
+            });
+            $('#icon-settings').removeClass('hidden');
+            $('#icon-delete-all').addClass('hidden');
+        }
+    });
+    function check_box() {
+        $('#icon-delete-all').removeClass('hidden');
+        if ($('.checkbox:checked').length == $('.checkbox').length) {
+            $('#checked-all').prop('checked', true);
+        } else {
+            $('#checked-all').prop('checked', false);
+        }
+        if ($('.checkbox:checked').length == 0) {
+            $('#icon-delete-all').addClass('hidden');
+            $('#icon-settings').removeClass('hidden');
+        } else {
+            $('#icon-settings').addClass('hidden');
+            $('#icon-delete-all').removeClass('hidden');
+        }
+    }
+    function get_val(id) {
+        var answer = $("#" + id).val();
+        $("#val_" + id).val(answer);
+    }
+    function showModal(modalContainerId, modalBodyId, id) {
+        var url = $(modalContainerId).data('url');
+
+        $.get(url, { id: id }, function (data) {
+            $(modalBodyId).html(data);
+            $(modalContainerId).modal('show');
+        });
+    }
+</script>

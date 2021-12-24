@@ -1,0 +1,361 @@
+﻿@using TracNghiemOnline.Models
+@{
+    ViewBag.Title = "Quản Lý Thí sinh";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var List = Model as List<StudentViewModel>;
+    var ListClass = ViewBag.ListClass;
+    var ListStudent = ViewBag.ListStudent;
+    var ListSpecialities = ViewBag.ListSpecialities as List<speciality>;
+    var ListTest = ViewBag.ListTest;
+    var ListScore = ViewBag.ListScore;
+    var ListPart = ViewBag.ListPart;
+}
+
+<div class="title-content">
+    <span class="title">@ViewBag.Title</span>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+<p>
+    <a class="btn btn-info modal-trigger" href="#addnew">Thêm thí sinh</a>
+    <a class="btn btn-info modal-trigger" href="#editscore">Nhập điểm tác phong</a>
+    <a class="btn btn-info modal-trigger" href="#filterByClasses">Thống kê điểm theo lớp</a>
+    <a class="btn btn-info modal-trigger" href="#filterByDate">Thống kê điểm theo ngày </a>
+</p>
+<div class="content row col s12">
+    @using (Html.BeginForm("DeleteStudent", "Admin", FormMethod.Post))
+    {
+
+        if (ListScore != null)
+        {
+            <div id="chart-container">
+                <canvas id="chart"></canvas>
+            </div>
+
+        }
+        else
+        {
+            <table class="striped centered" id="students-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tài Khoản</th>
+                        <th>Tên</th>
+                        <th>Lớp</th>
+                        <th>Thông Tin</th>
+                        <th>
+                            <p>
+                                <label>
+                                    <input type="checkbox" id="checked-all" />
+                                    <span></span>
+                                </label>
+                            </p>
+                        </th>
+                        <th>
+                            <i class="material-icons" id="icon-settings">settings</i>
+                            <input type="submit" class="material-icons hidden" value="delete_forever" style="background: none; border: none; cursor: pointer; color: red;" id="icon-delete-all" />
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in List)
+                    {
+                        <tr>
+                            <td>@item.student.id_student</td>
+                            <td>@item.student.username</td>
+                            <td>@item.student.name</td>
+                            <td>Lớp @item.Class.class_name <br />Ngành @item.speciality.speciality_name</td>
+                            <td>
+                                @if (item.student.last_seen == null)
+                                {
+                                    <span>Chưa từng online</span> }
+                                else
+                                {
+                                    <span>Online lần cuối lúc</span><br />
+                                    @String.Format("{0:dd'-'MM'-'yyyy HH':'mm':'ss}", item.student.last_login) <br /><span>tại</span>
+                                    <a href="@item.student.last_seen_url">@item.student.last_seen</a>}
+                            </td>
+                            <td>
+                                <p>
+                                    <label>
+                                        <input type="checkbox" class="checkbox" name="checkbox" value="@item.student.id_student" onchange="check_box()" />
+                                        <span></span>
+                                    </label>
+                                </p>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("EditStudent/" + item.student.id_student)"><i class="material-icons">edit</i></a>
+                                <a class="modal-trigger" href="#delete-@item.student.id_student"><i class="material-icons">delete</i></a>
+
+                            </td>
+                        </tr>
+                        <!-- Modal Structure -->
+                        <div id="delete-@item.student.id_student" class="modal">
+                            <div class="modal-content">
+                                <h4>Xác Nhận</h4>
+                                <p>Bạn có xóa tài khoản @item.student.name</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="modal-close waves-effect waves-green btn-flat">Hủy</a>
+                                <a href="@Url.Action("DeleteStudent/" + item.student.id_student)" class="modal-close waves-effect waves-green btn-flat">Có</a>
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>
+<div id="addnew" class="modal">
+    <div class="row" style="padding-top: 10px">
+        <div id="add_normal" class="col s12">
+            @using (Html.BeginForm("AddStudent", "Admin", FormMethod.Post))
+            {
+                <div class="input-field">
+                    <label for="name">Tên <span class="failed">(*)</span></label>
+                    <input type="text" id="name" name="name" onchange="" required>
+                </div>
+                <div class="input-field">
+                    <label for="username">Tài khoản <span class="failed">(*)</span></label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="input-field">
+                    <label for="password">Mật khẩu <span class="failed">(*)</span></label>
+                    <input type="password" data-minlength="6" name="password" id="password" required>
+                </div>
+                <div class="input-field">
+                    <select name="id_class" id="id_class" required>
+                        <option disabled selected>Chọn</option>
+                        @foreach (var item in ListClass)
+                        {
+                            <option value="@item.id_class">@item.class_name</option>
+                        }
+                    </select>
+                    <label>Lớp<span class="failed">(*)</span></label>
+                </div>
+                <div class="input-field">
+                    <select name="id_speciality" id="id_speciality" required>
+                        @foreach (var item in ListSpecialities)
+                        {
+                            <option value="@item.id_speciality">@item.speciality_name</option>
+                        }
+                    </select>
+                    <label>Ngành</label>
+                </div>
+                <button type="submit" class="btn full-width" id="add-student" name="add-student">Thêm</button>
+
+            }
+        </div>
+
+    </div>
+</div>
+<div id="filterByDate" class="modal">
+    <div class="row" style="padding-top: 10px">
+        <div id="add_normal" class="col s12">
+            @using (Html.BeginForm("FilterScoreByDate", "Admin", FormMethod.Post))
+            {
+                <input type="date" name="date" id="date" required>
+                <button type="submit" class="btn full-width" id="add-student" name="add-student">Thêm</button>
+
+            }
+        </div>
+
+    </div>
+</div>
+<div id="filterByClasses" class="modal">
+    <div class="row" style="padding-top: 10px">
+
+        <div id="add_normal" class="col s12">
+            @using (Html.BeginForm("FilterScoreByClass", "Admin", FormMethod.Post))
+            {
+                <div class="input-field">
+                    <select name="id_class" id="id_class" onchange="get_units(this.value)" required>
+                        <option disabled selected>Chọn</option>
+                        @foreach (var item in ListClass)
+                        {
+                            <option value="@item.id_class">@item.class_name</option>
+                        }
+                    </select>
+                    <label>Lớp <span class="failed">(*)</span></label>
+                </div>
+                <button type="submit" class="btn full-width" id="add-test" name="filter-test-by-class">Lọc</button>
+            }
+        </div>
+
+    </div>
+</div>
+<div id="editscore" class="modal">
+    <div class="row" style="padding-top: 10px">
+        <div id="add_normal" class="col s12">
+            @using (Html.BeginForm("NhapDiem", "Admin", FormMethod.Post))
+            {
+
+                <div class="input-field">
+                    <select name="id_class" id="id_class" required>
+                        <option disabled selected>Chọn</option>
+                        @foreach (var item in ListClass)
+                        {
+                            <option value="@item.id_class">@item.class_name</option>
+                        }
+                    </select>
+                    <label>Lớp<span class="failed">(*)</span></label>
+                </div>
+                <div class="input-field">
+                    <select name="test_code" id="test_code" required>
+                        <option disabled selected>Chọn</option>
+                        @foreach (var item in ListTest)
+                        {
+                            <option value="@item.test.test_code">@item.test.test_name</option>
+                        }
+                    </select>
+                    <label>Bài thi<span class="failed">(*)</span></label>
+                </div>
+
+                <button type="submit" class="btn full-width" id="add-student" name="add-student">Nhập điểm</button>
+
+            }
+        </div>
+
+    </div>
+</div>
+<div id="printbienban" class="modal">
+    <div class="row" style="padding-top: 10px">
+        <div id="add_normal" class="col s12">
+            @using (Html.BeginForm("PrintBienBan", "Admin", FormMethod.Post))
+            {
+                <div class="input-field">
+                    <label for="name">Tên giáo viên <span class="failed">(*)</span></label>
+                    <input type="text" id="name" name="name" onchange="" required>
+                </div>
+
+                <div class="input-field">
+                    <select name="id_student" id="id_student" required>
+                        <option disabled selected>Chọn</option>
+                        @foreach (var item in ListStudent)
+                        {
+                            <option value="@item.student.id_student">@item.student.name</option>
+                        }
+                    </select>
+                    <label>Tên thí sinh<span class="failed">(*)</span></label>
+                </div>
+                <div class="input-field">
+                    <select name="test_code" id="test_code" required>
+                        <option disabled selected>Chọn</option>
+                        @foreach (var item in ListTest)
+                        {
+                            <option value="@item.test.test_code">@item.test.test_name</option>
+                        }
+                    </select>
+                    <label>Bài thi<span class="failed">(*)</span></label>
+                </div>
+
+                <button type="submit" class="btn full-width" id="add-student" name="add-student">In biên bản</button>
+
+            }
+        </div>
+
+    </div>
+</div>
+<script>
+    var rawPart = @Html.Raw(Json.Encode(ViewBag.ListPart));
+    var rawListScore = @Html.Raw(Json.Encode(ViewBag.ListScore));
+    var getChartElm = $("#chart");
+    $('.tabs').tabs();
+    $('.modal').modal();
+    $('#students-table').DataTable({
+        "language": {
+            "lengthMenu": "Hiển thị _MENU_",
+            "zeroRecords": "Không tìm thấy",
+            "info": "Hiển thị trang _PAGE_/_PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "emptyTable": "Không có dữ liệu",
+            "infoFiltered": "(tìm kiếm trong tất cả _MAX_ mục)",
+            "sSearch": "Tìm kiếm",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            }
+        }
+
+    });
+    $('select').select();
+    $('#checked-all').on('change', function () {
+        if (this.checked) {
+            $('.checkbox').each(function () {
+                this.checked = true;
+            });
+            $('#icon-settings').addClass('hidden');
+            $('#icon-delete-all').removeClass('hidden');
+        } else {
+            $('.checkbox').each(function () {
+                this.checked = false;
+            });
+            $('#icon-settings').removeClass('hidden');
+            $('#icon-delete-all').addClass('hidden');
+        }
+    });
+    function check_box() {
+        $('#icon-delete-all').removeClass('hidden');
+        if ($('.checkbox:checked').length == $('.checkbox').length) {
+            $('#checked-all').prop('checked', true);
+        } else {
+            $('#checked-all').prop('checked', false);
+        }
+        if ($('.checkbox:checked').length == 0) {
+            $('#icon-delete-all').addClass('hidden');
+            $('#icon-settings').removeClass('hidden');
+        } else {
+            $('#icon-settings').addClass('hidden');
+            $('#icon-delete-all').removeClass('hidden');
+        }
+    }
+    var renderChart = new Chart(getChartElm, {
+        type: 'bar',
+        data: {
+            labels: rawListScore,
+            datasets: [{
+                label: "Tổng số điểm ",
+                data: rawPart,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }],
+
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    display: true,
+                    stacked: true,
+                    ticks: {
+                        min: 0, // minimum value
+                        max: 10 // maximum value
+                    }
+                }]
+            }
+        }
+    });
+</script>

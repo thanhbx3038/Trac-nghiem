@@ -1,0 +1,110 @@
+﻿@using TracNghiemOnline.Models
+@{
+    ViewBag.Title = "Nhập điểm tác phong";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var List = Model as List<QuestionViewModel>;
+    var ListSubject = ViewBag.ListSubject as List<subject>;
+    var ListUnits = ViewBag.ListUnits as List<unit>;
+   
+}
+
+<div class="title-content">
+    <span class="title">@ViewBag.Title <a href="#add_normal">THÊM</a></span>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+ 
+ 
+
+<div class="content row col s12">
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th width="18%">Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+ 
+<script>
+    $('.tabs').tabs();
+    $('.modal').modal();
+     var editor; // use a global for the submit and return data rendering in the examples
+    editor = $('#questions-table').DataTable({
+        "language": {
+            "lengthMenu": "Hiển thị _MENU_",
+            "zeroRecords": "Không tìm thấy",
+            "info": "Hiển thị trang _PAGE_/_PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "emptyTable": "Không có dữ liệu",
+            "infoFiltered": "(tìm kiếm trong tất cả _MAX_ mục)",
+            "sSearch": "Tìm kiếm",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            }
+        }
+    });
+   
+ 
+ 
+     
+ 
+    // Activate an inline edit on click of a table cell
+    $('#questions-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+        editor.inline( this );
+    } );
+ 
+    $('#questions-table').DataTable( {
+        dom: "Bfrtip",
+        ajax: "../php/staff.php",
+        order: [[ 1, 'asc' ]],
+        columns: [
+            {
+                data: null,
+                defaultContent: '',
+                className: 'select-checkbox',
+                orderable: false
+            },
+            { data: "first_name" },
+            { data: "last_name" },
+            { data: "position" },
+            { data: "office" },
+            { data: "start_date" },
+            { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+        ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        buttons: [
+            { extend: "create", editor: editor },
+            { extend: "edit",   editor: editor },
+            { extend: "remove", editor: editor }
+        ]
+    } );
+ 
+
+    function showModal(modalContainerId, modalBodyId, id) {
+        var url = $(modalContainerId).data('url');
+
+        $.get(url, { id: id }, function (data) {
+            $(modalBodyId).html(data);
+            $(modalContainerId).modal('show');
+        });
+    }
+</script>

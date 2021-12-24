@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="trac_nghiem_onlineEntities">
+    <EntitySetMapping Name="classes">
+      <EntityTypeMapping TypeName="Model.class">
+        <MappingFragment StoreEntitySet="classes">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="id_speciality" ColumnName="id_speciality" />
+          <ScalarProperty Name="id_grade" ColumnName="id_grade" />
+          <ScalarProperty Name="class_name" ColumnName="class_name" />
+          <ScalarProperty Name="id_class" ColumnName="id_class" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="grades">
+      <EntityTypeMapping TypeName="Model.grade">
+        <MappingFragment StoreEntitySet="grades">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="grade_name" ColumnName="grade_name" />
+          <ScalarProperty Name="id_grade" ColumnName="id_grade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="permissions">
+      <EntityTypeMapping TypeName="Model.permission">
+        <MappingFragment StoreEntitySet="permissions">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="permission_name" ColumnName="permission_name" />
+          <ScalarProperty Name="id_permission" ColumnName="id_permission" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="quests_of_test">
+      <EntityTypeMapping TypeName="Model.quests_of_test">
+        <MappingFragment StoreEntitySet="quests_of_test">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="id_question" ColumnName="id_question" />
+          <ScalarProperty Name="test_code" ColumnName="test_code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="specialities">
+      <EntityTypeMapping TypeName="Model.speciality">
+        <MappingFragment StoreEntitySet="specialities">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="speciality_name" ColumnName="speciality_name" />
+          <ScalarProperty Name="id_speciality" ColumnName="id_speciality" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="statuses">
+      <EntityTypeMapping TypeName="Model.status">
+        <MappingFragment StoreEntitySet="statuses">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="status_name" ColumnName="status_name" />
+          <ScalarProperty Name="id_status" ColumnName="id_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="student_test_detail">
+      <EntityTypeMapping TypeName="Model.student_test_detail">
+        <MappingFragment StoreEntitySet="student_test_detail">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="student_answer" ColumnName="student_answer" />
+          <ScalarProperty Name="answer_d" ColumnName="answer_d" />
+          <ScalarProperty Name="answer_c" ColumnName="answer_c" />
+          <ScalarProperty Name="answer_b" ColumnName="answer_b" />
+          <ScalarProperty Name="answer_a" ColumnName="answer_a" />
+          <ScalarProperty Name="id_question" ColumnName="id_question" />
+          <ScalarProperty Name="test_code" ColumnName="test_code" />
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="students">
+      <EntityTypeMapping TypeName="Model.student">
+        <MappingFragment StoreEntitySet="students">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="last_seen_url" ColumnName="last_seen_url" />
+          <ScalarProperty Name="last_seen" ColumnName="last_seen" />
+          <ScalarProperty Name="last_login" ColumnName="last_login" />
+          <ScalarProperty Name="time_remaining" ColumnName="time_remaining" />
+          <ScalarProperty Name="time_start" ColumnName="time_start" />
+          <ScalarProperty Name="is_testing" ColumnName="is_testing" />
+          <ScalarProperty Name="id_speciality" ColumnName="id_speciality" />
+          <ScalarProperty Name="id_class" ColumnName="id_class" />
+          <ScalarProperty Name="id_permission" ColumnName="id_permission" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="id_donvi" ColumnName="id_donvi" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subjects">
+      <EntityTypeMapping TypeName="Model.subject">
+        <MappingFragment StoreEntitySet="subjects">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="subject_name" ColumnName="subject_name" />
+          <ScalarProperty Name="id_subject" ColumnName="id_subject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Model.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tests">
+      <EntityTypeMapping TypeName="Model.test">
+        <MappingFragment StoreEntitySet="tests">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="id_status" ColumnName="id_status" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="time_to_do" ColumnName="time_to_do" />
+          <ScalarProperty Name="total_questions" ColumnName="total_questions" />
+          <ScalarProperty Name="id_subject" ColumnName="id_subject" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="test_code" ColumnName="test_code" />
+          <ScalarProperty Name="test_name" ColumnName="test_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="teachers">
+      <EntityTypeMapping TypeName="Model.teacher">
+        <MappingFragment StoreEntitySet="teachers">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="last_seen_url" ColumnName="last_seen_url" />
+          <ScalarProperty Name="last_seen" ColumnName="last_seen" />
+          <ScalarProperty Name="last_login" ColumnName="last_login" />
+          <ScalarProperty Name="id_speciality" ColumnName="id_speciality" />
+          <ScalarProperty Name="id_permission" ColumnName="id_permission" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id_teacher" ColumnName="id_teacher" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="units">
+      <EntityTypeMapping TypeName="Model.unit">
+        <MappingFragment StoreEntitySet="units">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+          <ScalarProperty Name="id_unit" ColumnName="id_unit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="admins">
+      <EntityTypeMapping TypeName="Model.admin">
+        <MappingFragment StoreEntitySet="admins">
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="last_seen_url" ColumnName="last_seen_url" />
+          <ScalarProperty Name="last_seen" ColumnName="last_seen" />
+          <ScalarProperty Name="last_login" ColumnName="last_login" />
+          <ScalarProperty Name="id_permission" ColumnName="id_permission" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="questions">
+      <EntityTypeMapping TypeName="Model.question">
+        <MappingFragment StoreEntitySet="questions">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="timestamps" ColumnName="timestamps" />
+          <ScalarProperty Name="correct_answer" ColumnName="correct_answer" />
+          <ScalarProperty Name="answer_d" ColumnName="answer_d" />
+          <ScalarProperty Name="answer_c" ColumnName="answer_c" />
+          <ScalarProperty Name="answer_b" ColumnName="answer_b" />
+          <ScalarProperty Name="answer_a" ColumnName="answer_a" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="img_content" ColumnName="img_content" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="id_subject" ColumnName="id_subject" />
+          <ScalarProperty Name="id_question" ColumnName="id_question" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="scores">
+      <EntityTypeMapping TypeName="Model.score">
+        <MappingFragment StoreEntitySet="scores">
+          <ScalarProperty Name="diem_tac_phong" ColumnName="diem_tac_phong" />
+          <ScalarProperty Name="time_finish" ColumnName="time_finish" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="score_number" ColumnName="score_number" />
+          <ScalarProperty Name="test_code" ColumnName="test_code" />
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="id_score" ColumnName="id_score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

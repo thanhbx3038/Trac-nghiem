@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="25a2ae9f773f45ad8d4c83280c99ffab" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.class" Width="1.5" PointX="0.75" PointY="15.875" />
+        <EntityTypeShape EntityType="Model.grade" Width="1.5" PointX="1.5" PointY="19.875" />
+        <EntityTypeShape EntityType="Model.permission" Width="1.5" PointX="0.75" PointY="11.875" />
+        <EntityTypeShape EntityType="Model.quests_of_test" Width="1.5" PointX="5.25" PointY="6.125" />
+        <EntityTypeShape EntityType="Model.speciality" Width="1.5" PointX="1.5" PointY="22.375" />
+        <EntityTypeShape EntityType="Model.status" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.student_test_detail" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.student" Width="1.5" PointX="3" PointY="13.25" />
+        <EntityTypeShape EntityType="Model.subject" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.test" Width="1.5" PointX="3" PointY="3.375" />
+        <AssociationConnector Association="Model.FK__students__id_cla__5070F446" />
+        <AssociationConnector Association="Model.fk_grade" />
+        <AssociationConnector Association="Model.fk_speciality" />
+        <AssociationConnector Association="Model.FK__students__id_per__4F7CD00D" />
+        <AssociationConnector Association="Model.FK_quests_of_test_tests" />
+        <AssociationConnector Association="Model.FK__students__id_spe__5165187F" />
+        <AssociationConnector Association="Model.FK__tests__id_status__59FA5E80" />
+        <AssociationConnector Association="Model.FK__tests__id_subjec__59063A47" />
+        <EntityTypeShape EntityType="Model.teacher" Width="1.5" PointX="5.75" PointY="16.5" />
+        <AssociationConnector Association="Model.FK__teachers__id_per__4AB81AF0" />
+        <AssociationConnector Association="Model.FK__teachers__id_spe__4BAC3F29" />
+        <EntityTypeShape EntityType="Model.unit" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Model.admin" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="Model.FK__admins__id_permi__46E78A0C" />
+        <EntityTypeShape EntityType="Model.question" Width="1.5" PointX="3" PointY="8.25" />
+        <AssociationConnector Association="Model.FK__questions__id_su__5629CD9C" />
+        <AssociationConnector Association="Model.FK_quests_of_test_questions" />
+        <EntityTypeShape EntityType="Model.score" Width="1.5" PointX="5.25" PointY="10.5" />
+        <AssociationConnector Association="Model.FK__scores__id_stude__60A75C0F" />
+        <AssociationConnector Association="Model.FK_scores_tests" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

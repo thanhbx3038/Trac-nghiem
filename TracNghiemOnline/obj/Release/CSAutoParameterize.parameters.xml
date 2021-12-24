@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="trac_nghiem_onlineEntities-Web.config Connection String" description="trac_nghiem_onlineEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.Model.csdl|res://*/Models.Model.ssdl|res://*/Models.Model.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=DESKTOP-4R2PPNC\SQLEXPRESS;Initial Catalog=trac_nghiem_online;Integrated Security=True; multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\ThucTap-2021\\Clone\\Thuctap2021\\Trac-nghiem\\TracNghiemOnline\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='trac_nghiem_onlineEntities']/@connectionString" />
+  </parameter>
+</parameters>

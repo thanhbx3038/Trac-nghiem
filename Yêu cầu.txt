@@ -1,0 +1,12 @@
+Yêu cầu website thi trắc nghiệm
+
+- Cài đặt SQL server 2014
+- Cài đặt visual studio 2019
+- Mở và chạy website trong môi trường studio
+- Publish và cài đặt và mở website trên server IIS
+- Thêm chức năng xem/lọc câu hỏi theo nhóm (.../Admin/QuestionManager)
+- Chức năng import câu hỏi từ file excel vào website
+- Chức năng thống kê điểm của thí sinh (theo lớp, theo ngày tháng)
+- Chức năng chọn và active câu hỏi hàng loạt
+
+ 

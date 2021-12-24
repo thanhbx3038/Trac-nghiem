@@ -1,0 +1,89 @@
+.divCenter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0 auto;
+    /*margin-top: -50px;
+    margin-left: -50px;*/
+}
+.footer{
+	background-color: #4ca3db; /* Green */
+	width:100%;
+}
+.footerText{
+    height: 50px;
+	line-height: 50px;	
+    color: #ffffff;
+}
+.logo{
+	margin-bottom:20px;
+}
+.title{
+	color: #1a377f;
+	font-weight:bold;
+}
+.menu-section {
+	background: #0a79c0;
+}
+#menu-top a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu-top-active {
+    background-color: green;
+}
+
+.menu-section .nav > li > a:hover,.menu-section .nav > li > a:focus {
+    background-color: #243f84!important;
+}
+
+.menu-section .dropdown-menu > li > a:hover,.menu-section .dropdown-menu > li > a:focus {
+    background-color: #4ca3db!important;
+}
+
+.navbar-inverse {
+    background-color: #243f84;
+    border-color: transparent;
+}
+
+.navbar-toggle {
+    background-color: #243f84;
+    border: 1px solid #fff;
+}
+#menu-top .dropdown-menu{
+	background-color: #243f84;
+	border: 1px solid #203a7b;
+}
+/*thông tin chung*/
+.thongtinchung{
+	color: blue;
+	font-size:small;
+	margin:20px 0px 20px!important;
+}
+.noibat{
+    font-size: 16px;
+    color:red;
+    font-weight:bold;
+}
+.noibat2{
+	width: 321px;
+    height: 49px;
+    background: url(../images/title.png);
+    color: #fff;
+    font-size: 24px;
+    font-family: 'myriad';
+    font-weight: 400;
+    line-height: 38px;
+    text-indent: 46px;
+    margin: 0 0 5px;
+}
+/*bang thong tin*/
+.table.no-border tr td, .table.no-border tr th {
+	border-width: 0;
+}
+.table.no-border th {
+	width: 20%;
+	font-weight:normal;
+	text-align:right;
+}

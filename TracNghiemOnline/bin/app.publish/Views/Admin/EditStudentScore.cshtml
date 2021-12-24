@@ -1,0 +1,53 @@
+﻿@using TracNghiemOnline.Models
+@{
+    var students = Model as List<StudentViewModel>;
+  
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var ListClass = ViewBag.ListClass as @class;
+    ViewBag.Title = "Nhập điểm tác phong lớp " + ListClass.class_name;
+     
+}
+
+<div class="title-content">
+    <a class="title" href="@Url.Action("StudentManager")">Quay Lại</a>
+    <span class="title">@ViewBag.Title</span>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+<div class="content">
+    <div class="row">
+        <div id="add_normal" class="col s12">
+            @using (Html.BeginForm("EditStudentScore", "Admin", FormMethod.Post))
+            {
+                <input type="hidden" id="id_class" name="id_class" required value="@ViewBag.id_class" class="hidden">
+                <input type="hidden" id="test_code" name="test_code" required value="@ViewBag.test_code" class="hidden">
+
+                foreach (StudentViewModel item in students)
+                {
+        <div class="col l6 s12">
+            
+            <div class="input-field">
+                <label>@item.student.name</label>
+                <input type="text" name="d_@(item.student.id_student)" id="d_@(item.student.id_student)" required value="1">
+            </div>
+        </div>
+                        }
+                   
+                    <div class="col l12">
+                        <button type="submit" class="btn full-width" id="edit-student" name="edit-student">Cập nhật</button>
+                    </div>
+                }
+            </div>
+    </div>
+</div>
+<script>
+    $('select').select();
+</script>
+
+
